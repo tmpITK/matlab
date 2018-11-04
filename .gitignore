@@ -1,0 +1,17 @@
+
+#Folders#
+########################
+*/DeepLearning
+*/sorts/QuickSort.m
+
+
+DeepLearning/CIFAR/cifar-10-batches-mat/batches.meta.mat
+DeepLearning/CIFAR/cifar-10-batches-mat/data_batch_1.mat
+DeepLearning/CIFAR/cifar-10-batches-mat/data_batch_2.mat
+DeepLearning/CIFAR/cifar-10-batches-mat/data_batch_3.mat
+DeepLearning/CIFAR/cifar-10-batches-mat/data_batch_4.mat
+DeepLearning/CIFAR/cifar-10-batches-mat/data_batch_5.mat
+DeepLearning/CIFAR/cifar-10-batches-mat/readme.html
+DeepLearning/CIFAR/cifar-10-batches-mat/test_batch.mat
+DeepLearning/CIFAR/cifar10.m
+DeepLearning/CIFAR/saveCIFAR10AsFolderOfImages.m

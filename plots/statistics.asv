@@ -1,0 +1,31 @@
+
+cla;
+
+
+X = 3:1:100;
+hold on;
+grid on;
+
+paths = ["./CEO/", "./PSO/"];
+colors = ["b", "r", "k"];
+[m, n]= size(paths);
+
+a = zeros;
+
+legend;
+for i=1:2
+    [max, med, min, best] = loadStats(paths(i));
+    
+    zeros(i) = best;
+    plot(X, max(3:100), colors(i)+ '--');
+    plot(X, med(3:100), colors(i));
+    plot(X, min(3:100), colors(i) + '-.');
+end
+
+title('The anatomically detailed CA1 pyramid cell model');
+
+legend('CEO max', ' CEO median', 'CEO minimum'...
+    ,'PSO max', ' PSO median', 'PSO minimum' );
+
+
+
