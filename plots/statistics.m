@@ -1,32 +1,41 @@
+paths = ["./CEO/", "./PSO/", "./DE/"];
+colors = ["b", "r", "k"];
+[m, n]= size(paths);
+generation_num = 101 %though sometimes its 100 only
+
+bests = zeros(n, 10, 1);
+X = 1:1:100;
 
 cla;
 
-
-X = 3:1:100;
 hold on;
 grid on;
-
-paths = ["./CEO/", "./PSO/"];
-colors = ["b", "r", "k"];
-[m, n]= size(paths);
-
-bests = zeros(n, 10, 1);
-
 legend;
-for i=1:2
+for i=1:n
     [max, med, min, best] = loadStats(paths(i));
-
+    [generations,k]=size(max);
+    if generations>generation_num
+        rate = ceil(generations/generation_num)
+        max = downsample(max, rate);
+        med = downsample(med, rate);
+        min = downsample(min, rate);
+    end
+    
     bests(i, 1:10) = best(1:10);
-    plot(X, max(3:100), colors(i)+ '--');
-    plot(X, med(3:100), colors(i));
-    plot(X, min(3:100), colors(i) + '-.');
+    plot(X, max(1:100), colors(i)+ '--');
+    plot(X, med(1:100), colors(i));
+    plot(X, min(1:100), colors(i) + '-.');
+    
 end
-
+%zooming on y axis to make it more interpretable
+axis([1 100 2.8*10e-6 10e-5]);
+hold off;
 bests(1,1:10)
 title('The anatomically detailed CA1 pyramid cell model');
 
 legend('CEO max', ' CEO median', 'CEO minimum'...
-    ,'PSO max', ' PSO median', 'PSO minimum' );
+    ,'PSO max', ' PSO median', 'PSO minimum'...
+    ,'DE max', ' DE median', 'DE minimum');
 
 %%
 %Mann-Whitney U-test

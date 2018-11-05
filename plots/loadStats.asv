@@ -1,4 +1,4 @@
-function [max, med, min, bestParams] = loadStats(path)
+function [max, med, mi bestParams] = loadStats(path)
 %LOADSTATS Summary of this function goes here
 %   Detailed explanation goes here
 max = load(path + "max.txt");
