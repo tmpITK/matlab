@@ -3,7 +3,7 @@ colors = ["b", "r", "k"];
 [m, n]= size(paths);
 generation_num = 101 %though sometimes its 100 only
 
-bests = zeros(n, 10, 1);
+bests = zeros(10,n,1);
 X = 1:1:100;
 
 cla;
@@ -20,8 +20,7 @@ for i=1:n
         med = downsample(med, rate);
         min = downsample(min, rate);
     end
-    
-    bests(i, 1:10) = best(1:10);
+    bests(:,i) = best(1:10);
     plot(X, max(1:100), colors(i)+ '--');
     plot(X, med(1:100), colors(i));
     plot(X, min(1:100), colors(i) + '-.');
@@ -30,16 +29,26 @@ end
 %zooming on y axis to make it more interpretable
 axis([1 100 2.8*10e-6 10e-5]);
 hold off;
-bests(1,1:10)
+
 title('The anatomically detailed CA1 pyramid cell model');
 
 legend('CEO max', ' CEO median', 'CEO minimum'...
     ,'PSO max', ' PSO median', 'PSO minimum'...
     ,'DE max', ' DE median', 'DE minimum');
 
-%%
-%Mann-Whitney U-test
+%% Mann-Whitney U-test
+indices = 1:1:n;
+mw_p_values = zeros(n, 1);
+k = 2 %MW test is for 2 sets of samples
 
-p = ranksum(bests(1, 1:10), bests(2,1:10));
-%p = 1.826717911095504e-04 which means the difference in medians is
-%significant
+combinations = nchoosek(indices,k);
+
+for i = 1:n
+    %TODO why are every p value equal?
+    mw_p_values(i) = ranksum(bests(:,combinations(i,1)),...
+                            bests(:,combinations(i,2)));
+end
+
+%% Kruskal Wallis test
+
+kw_p_value = kruskalwallis(bests, ["CEO", "PSO", "DE"]);
